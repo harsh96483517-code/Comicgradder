@@ -38,6 +38,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (on) selected[url] = title else selected.remove(url)
     }
 
+    /** Set when the corner download button of a card is tapped; UI consumes it (permission check + enqueue). */
+    var pendingDownload by mutableStateOf<ComicItem?>(null)
+        private set
+
+    fun requestDownload(url: String, title: String) {
+        pendingDownload = ComicItem(title.ifBlank { "comic" }, url)
+    }
+
+    fun consumePending() { pendingDownload = null }
+
     fun onNavigate(url: String) { page = PageInfo(url = url) }
 
     fun onPage(json: String) {

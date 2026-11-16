@@ -25,6 +25,9 @@ class JsBridge(private val vm: MainViewModel) {
     fun onToggle(url: String, title: String, on: Boolean) { main.post { vm.toggle(url, title, on) } }
 
     @JavascriptInterface
+    fun onDownload(url: String, title: String) { main.post { vm.requestDownload(url, title) } }
+
+    @JavascriptInterface
     fun onPage(json: String) { main.post { vm.onPage(json) } }
 }
 

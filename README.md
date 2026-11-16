@@ -7,7 +7,8 @@ Min SDK 24 · Target SDK 34 · Saves to `Downloads/ComicGrabber/`
 
 ## How it works
 1. **Browse** – WebView loads your start URL (changeable with the pencil icon).
-2. **Detect** – `assets/inject.js` runs on every page. Pages with ≥2 comic cards are *listing* pages;
+2. **Detect** (each card gets a blue ⬇ download button top-left and a tick-box top-right)
+ – `assets/inject.js` runs on every page. Pages with ≥2 comic cards are *listing* pages;
    a tick-box is overlaid on each card. Selection is kept across pages.
 3. **Queue** – tap **Download Selected (X)**. Comics are processed sequentially by `DownloadEngine`.
 4. **Per comic**

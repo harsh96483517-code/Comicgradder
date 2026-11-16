@@ -51,6 +51,7 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -112,6 +113,17 @@ fun App(vm: MainViewModel) {
         ) action() else {
             pending = action
             permLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+    }
+
+    val pendingDl = vm.pendingDownload
+    LaunchedEffect(pendingDl) {
+        if (pendingDl != null) {
+            withStorage {
+                vm.engine.enqueue(listOf(pendingDl))
+                Toast.makeText(ctx, "Queued: ${pendingDl.title}", Toast.LENGTH_SHORT).show()
+            }
+            vm.consumePending()
         }
     }
 

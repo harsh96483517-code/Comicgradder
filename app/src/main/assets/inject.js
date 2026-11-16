@@ -80,6 +80,19 @@
           card.__cgOn = !card.__cgOn;
         }, true);
         card.appendChild(box);
+
+        // Download button in the top-left corner of the comic
+        var dl = document.createElement('div');
+        dl.textContent = '\u2B07';
+        dl.style.cssText = 'position:absolute;top:8px;left:8px;width:34px;height:34px;border-radius:50%;' +
+          'border:2px solid #fff;color:#fff;font:bold 18px/30px sans-serif;text-align:center;' +
+          'z-index:99999;cursor:pointer;background:rgba(25,118,210,.92);';
+        dl.addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation();
+          dl.style.background = '#2e7d32';
+          try { CG.onDownload(card.__cgUrl, card.__cgTitle); } catch (err) {}
+        }, true);
+        card.appendChild(dl);
         card.__cgBox = box;
         card.__cgOn = false;
         if (pre[card.__cgUrl]) { card.__cgOn = true; setSel(card, true, false); }
